@@ -1,0 +1,33 @@
+<div class="app">
+  <div class="app-group">
+    <h2>List of all groups</h2>
+    <div>
+      <div class="app-group-list__item" *ngFor="let group of groups">
+        <p>{{ group.name }}</p>
+        <button class="app-button" (click)="joinGroup(group)">Join</button>
+      </div>
+    </div>
+    <form [formGroup]="groupForm" (ngSubmit)="groupSubmit()">
+      <input class="app-input" type="text" formControlName="name" />
+      <button class="app-button" type="submit">Send</button>
+      <div *ngIf="submittedGroup && groupControl.name.errors">
+        <p>enter a group name</p>
+      </div>
+    </form>
+  </div>
+  <div class="app-message">
+    <div class=""></div>
+    <h2>Username is {{username}}</h2>
+    <h5>Name of Group: {{ nameOfGroupJoined ? nameOfGroupJoined : 'No group joined yet.'}}</h5>
+    <div class="app-message__list">
+      <p *ngFor="let message of messages" [ngClass]="{'user-message': username===message.username}"><span>{{message.username}}:</span>{{message.content}}</p>
+    </div>
+    <form [formGroup]="messageForm" (ngSubmit)="createMessage()">
+      <input class="app-input" type="text" formControlName="content" />
+      <button class="app-button">Send</button>
+      <div *ngIf="submittedMessage && messageControl?.content?.errors">
+        <p>enter a message</p>
+      </div>
+    </form>
+  </div>
+</div>
